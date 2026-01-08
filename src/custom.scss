@@ -1,0 +1,85 @@
+$primary-color: #fdbd0d;
+$secondary-color: #d80909;
+$tertiary-color: #20c997;
+$body-bg-color: #f8f9fa;
+$body-text-color: #212529;
+
+body {
+  background-color: $body-bg-color;
+  color: $body-text-color;
+  font-family: "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+.text-primary {
+  color: $primary-color !important;
+}
+
+.text-secondary {
+  color: $secondary-color !important;
+}
+
+.text-tertiary {
+  color: $tertiary-color !important;
+}
+
+.bg-primary {
+  background-color: $primary-color !important;
+}
+
+.bg-secondary {
+  background-color: $secondary-color !important;
+}
+
+.bg-tertiary {
+  background-color: $tertiary-color !important;
+}
+
+.btn-primary-custom {
+  background-color: $primary-color;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: darken($primary-color, 7%);
+  }
+}
+
+.btn-secondary-custom {
+  background-color: $secondary-color;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: darken($secondary-color, 7%);
+  }
+}
+
+.btn-tertiary-custom {
+  background-color: $tertiary-color;
+  color: #fff;
+  border: none;
+
+  &:hover {
+    background-color: darken($tertiary-color, 7%);
+  }
+}
+
+.dashboard {
+  padding: 20px;
+
+  h2 {
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  table {
+    background-color: #fff;
+    border-radius: 6px;
+    overflow: hidden;
+  }
+
+  th {
+    background-color: $primary-color;
+    color: #fff;
+  }
+}

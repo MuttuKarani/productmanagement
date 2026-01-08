@@ -1,0 +1,91 @@
+.modal-backdrop-custom {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-custom {
+  background: #ffffff;
+  width: 520px;
+  max-width: 95%;
+  border-radius: 14px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.animate-scale {
+  animation: scaleFade 0.25s ease forwards;
+}
+
+@keyframes scaleFade {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.modal-header-custom {
+  padding: 16px 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header-custom h5 {
+  margin: 0;
+  font-weight: 600;
+}
+
+.modal-body-custom {
+  padding: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.modal-body-custom label {
+  font-size: 13px;
+  font-weight: 500;
+  color: #555;
+}
+
+.modal-body-custom input {
+  padding: 10px;
+  font-size: 14px;
+}
+
+.image-preview {
+  margin-top: 10px;
+  text-align: center;
+}
+
+.image-preview img {
+  max-height: 140px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+}
+
+.modal-footer-custom {
+  padding: 14px 20px;
+  border-top: 1px solid #eee;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+@media (max-width: 576px) {
+  .modal-custom {
+    width: 95%;
+  }
+}
