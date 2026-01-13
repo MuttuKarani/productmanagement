@@ -17,22 +17,22 @@ const ProductCard = ({ product, onEdit, onDelete }) => {
         <p className="product-category">{product.category}</p>
 
         <div className="product-price">₹ {product.price}</div>
+      </div>
 
-        <div className="product-actions">
-          <button
-            className="btn btn-sm btn-outline-primary"
-            onClick={() => onEdit(product)}
-          >
-            Edit
-          </button>
+      <div className="product-actions">
+        <button
+          className="btn btn-sm btn-outline-primary"
+          onClick={() => onEdit(product)}
+        >
+          Edit
+        </button>
 
-          <button
-            className="btn btn-sm btn-outline-danger"
-            onClick={() => onDelete(product.id)}
-          >
-            Delete
-          </button>
-        </div>
+        <button
+          className="btn btn-sm btn-outline-danger"
+          onClick={() => onDelete(product.id || product._tempId)}
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
