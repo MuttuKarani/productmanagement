@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   getProducts,
   addProduct,
@@ -28,31 +28,34 @@ const DashBoard = () => {
     setTimeout(() => setToast(null), 3000);
   };
 
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      setProducts(JSON.parse(stored));
-      setLoading(false);
-    } else {
-      fetchProducts();
-    }
-  }, []);
-
-  const fetchProducts = async () => {
+  const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       const res = await getProducts();
+
       const withTempIds = res.data.map((p) => ({
         ...p,
         _tempId: p.id,
       }));
+
       setProducts(withTempIds);
     } catch {
       showToast("Failed to fetch products", "error");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    const stored = localStorage.getItem(STORAGE_KEY);
+
+    if (stored) {
+      setProducts(JSON.parse(stored));
+      setLoading(false);
+    } else {
+      fetchProducts();
+    }
+  }, [fetchProducts]);
 
   useEffect(() => {
     if (!loading) {
@@ -77,7 +80,9 @@ const DashBoard = () => {
         showToast("Product updated successfully");
       } else {
         const res = await addProduct(product);
+
         setProducts((prev) => [...prev, { ...res.data, _tempId: Date.now() }]);
+
         showToast("Product added successfully");
       }
     } catch {
@@ -91,9 +96,11 @@ const DashBoard = () => {
   const handleDeleteProduct = async (id) => {
     try {
       await deleteProduct(id);
+
       setProducts((prev) =>
         prev.filter((p) => p.id !== id && p._tempId !== id)
       );
+
       showToast("Product deleted", "error");
     } catch {
       showToast("Delete failed", "error");
@@ -110,6 +117,7 @@ const DashBoard = () => {
 
   const filteredProducts = products.filter((p) => {
     const searchText = normalizeText(search);
+
     return (
       normalizeText(p.title).includes(searchText) ||
       normalizeText(p.category).includes(searchText)
@@ -120,9 +128,13 @@ const DashBoard = () => {
     <div className="container mt-4">
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h3 className="text-primary">Product Management Dashboard</h3>
+
         <button
           className="fab-add bg-primary text-secondary"
-          onClick={() => setShowModal(true)}
+          onClick={() => {
+            setEditingProduct(null);
+            setShowModal(true);
+          }}
         >
           +
         </button>
@@ -139,8 +151,8 @@ const DashBoard = () => {
       ) : (
         <ProductGrid
           products={filteredProducts}
-          onEdit={(p) => {
-            setEditingProduct(p);
+          onEdit={(product) => {
+            setEditingProduct(product);
             setShowModal(true);
           }}
           onDelete={handleDeleteProduct}
